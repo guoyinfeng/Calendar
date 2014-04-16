@@ -1,5 +1,5 @@
 {
-  "name": "amglarjs-calendar",
+  "name": "calendar-angularjs",
   "version": "0.0.1",
   "dependencies": {
     "angular": "latest",
