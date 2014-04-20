@@ -4,7 +4,7 @@
 /**
  * Services that persists and retrieves TODOs from localStorage
 */
-todomvc.factory('eventStorage', function () {
+angular.module('calendarDemoApp').factory('eventStorage', function () {
 	var STORAGE_ID = 'event-storage';
 
 	return {
@@ -12,8 +12,8 @@ todomvc.factory('eventStorage', function () {
 			return JSON.parse(localStorage.getItem(STORAGE_ID) || '[]');
 		},
 
-		put: function (todos) {
-			localStorage.setItem(STORAGE_ID, JSON.stringify(todos));
+		put: function (events) {
+			localStorage.setItem(STORAGE_ID, JSON.stringify(events));
 		}
 	};
 });
