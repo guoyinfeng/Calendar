@@ -9,9 +9,11 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, items, time) {
   $scope.selected = {
     item: $scope.items[0]
   };
-
+    $scope.event = {
+        subject: ''
+    };
   $scope.ok = function () {
-    $modalInstance.close($scope.selected.item);
+    $modalInstance.close($scope.event);
   };
 
   $scope.cancel = function () {

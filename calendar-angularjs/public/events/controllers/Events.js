@@ -120,10 +120,9 @@ function CalendarCtrl($scope, $modal, eventStorage) {
 			}
 		});
 
-		modalInstance.result.then(function (selectedItem) {
-			$scope.selected = selectedItem;
+		modalInstance.result.then(function (eventobj) {
 			var event2Add = {
-				title: 'abcd',
+				title: eventobj.subject,
 				start: new Date(yEvent, mEvent, dEvent),
 				end: new Date(yEvent, mEvent, dEvent),
 				className: ['openSesame']
