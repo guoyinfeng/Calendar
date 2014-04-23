@@ -46,8 +46,45 @@ function CalendarCtrl($scope, $modal, eventStorage) {
 	/* alert on eventClick */
 	$scope.alertOnEventClick = function (event, allDay, jsEvent, view) {
 		console.log('event click');
-		$scope.alertMessage = (event.title + ' was clicked ');
-	}; 
+		//$scope.alertMessage = (event.title + ' was clicked ');
+		var modalInstance = $modal.open({
+			templateUrl: 'upsertEvent.html',
+			controller: ModalInstanceCtrl,
+			resolve: {
+				items: function () {
+					return $scope.items;
+				},
+                eventTemp: function(){
+					return event;
+				}
+			}
+		});
+
+		modalInstance.result.then(function (eventobj) {
+			var event2Add = {
+				title: eventobj.title,
+				start: new Date(yEvent, mEvent, dEvent),
+				end: new Date(yEvent, mEvent, dEvent),
+				className: ['openSesame']
+			};
+			$scope.events.push(event2Add);
+			var events2Upsert = [];
+			for(var i = 0; i < $scope.events.length; i++){
+				console.log('event:::'+$scope.events[i].title);
+				events2Upsert.push({
+					title: $scope.events[i].title,
+					start: $scope.events[i].start,
+					end: $scope.events[i].end,
+					className: $scope.events[i].className
+				});
+			}
+			eventStorage.put(events2Upsert);
+			console.log('approve');
+
+		}, function () {
+			console.log('Modal dismissed at: ' + new Date());
+		});
+	};
 
 	/* alert on Drop */
 	$scope.alertOnDrop = function (event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
@@ -106,23 +143,25 @@ function CalendarCtrl($scope, $modal, eventStorage) {
 		var mEvent = date.getMonth();
 		var yEvent = date.getFullYear();
 
-
+        var eventTemp = {
+            title: ''
+        };
 		var modalInstance = $modal.open({
-			templateUrl: 'newEvent.html',
+			templateUrl: 'upsertEvent.html',
 			controller: ModalInstanceCtrl,
 			resolve: {
 				items: function () {
 					return $scope.items;
 				},
-				time: function(){
-					return date;
+                eventTemp: function(){
+					return eventTemp;
 				}
 			}
 		});
 
 		modalInstance.result.then(function (eventobj) {
 			var event2Add = {
-				title: eventobj.subject,
+				title: eventobj.title,
 				start: new Date(yEvent, mEvent, dEvent),
 				end: new Date(yEvent, mEvent, dEvent),
 				className: ['openSesame']
