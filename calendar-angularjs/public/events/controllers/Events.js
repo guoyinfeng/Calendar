@@ -9,39 +9,7 @@ function CalendarCtrl($scope, $modal, eventStorage) {
 	var m = date.getMonth();
 	var y = date.getFullYear();
 
-	/* event source that contains custom events on the scope */
-	/*
-	$scope.events = [{
-		title: 'All Day Event',
-		start: new Date(y, m, 1)
-	}, {
-		title: 'Click for Google',
-		start: new Date(y, m, 22),
-		end: new Date(y, m, 23),
-		url: 'http://google.com/'
-	}];
-	*/
-	//var eventslocal = 
 	$scope.events = eventStorage.get();
-	/*
-	$scope.$watch('eventslocal', function (newValue, oldValue) {
-		console.log('abc!!!');
-		if (newValue !== oldValue) { // This prevents unneeded calls to the local storage
-			var events2Upsert = [];
-			for(var i = 0; i < newValue.length; i++){
-			//for(event in $scope.events){
-				console.log('event:::'+newValue[i].title);
-				events2Upsert.push({
-					title: newValue[i].title,
-					start: newValue[i].start,
-					end: newValue[i].end,
-					className: newValue[i].className
-				});
-			}
-			eventStorage.put(events2Upsert);
-		}
-	}, true);
-	*/
 
 	/* alert on eventClick */
 	$scope.alertOnEventClick = function (event, allDay, jsEvent, view) {
